@@ -1,6 +1,6 @@
 # Finnish-to-English Image Translation Pipeline
 
-I built this over a weekend as a complete on-premise image translation system that processes Finnish text in images and renders English translations back onto the original image. No cloud APIs, no external dependencies—everything runs locally.
+I built this over a weekend as a complete on-prem image translation system that processes Finnish text in images and renders English translations back onto the original image. No cloud APIs, no external dependencies—everything runs locally.
 
 ## What Does This Thing Actually Do?
 
@@ -37,8 +37,6 @@ Here's what's under the hood:
 ## The CPU vs GPU Trade-off
 
 This implementation uses CPU inference, which trades speed for deployment flexibility and resource independence. While GPU acceleration or cloud-based inference would offer better performance, the CPU approach demonstrates the feasibility of running complex AI pipelines in resource-constrained or offline environments.
-
-The design prioritizes self-sufficiency and universal deployment capability over raw processing speed.
 
 ## Project Layout
 
