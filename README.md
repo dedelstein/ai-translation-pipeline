@@ -93,12 +93,6 @@ Segment 1/3:
 --- Moving to next segment ---
 ```
 
-## Implementation Notes
-
-Building this system highlighted the complexity of multi-model integration beyond individual model performance. The text detection and inpainting work reliably, and the translation quality is solid for a local transformer model.
-
-The most challenging aspect was accurate text positioning during the rendering stage. Proper font matching, text wrapping, and handling various text orientations required careful geometric calculations and visual calibration.
-
 ## Potential Extensions
 
 - Support for additional language pairs
