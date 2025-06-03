@@ -8,18 +8,24 @@ from PIL import Image, ImageDraw, ImageFont
 
 # Lama inpainting is from: https://github.com/enesmsahin/simple-lama-inpainting
 
-def translate_text(text, translator_tokenizer, translator_model):
+def translate_text(text, translator_tokenizer, translator_model, decoding_params={}):
     inputs = translator_tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=512)
-    translated_tokens = translator_model.generate(**inputs)
+    translated_tokens = translator_model.generate(**inputs,  **decoding_params )
     translated_texts = [translator_tokenizer.decode(t, skip_special_tokens=True) for t in translated_tokens]
     return translated_texts
 
-def extract_regions_from_image(image_path, custom_ocr_system, polygon_orderer):
-    print(f"\nProcessing image: {image_path}")
+def extract_regions_from_image(image_input, custom_ocr_system, polygon_orderer):
+    if isinstance(image_input, str):
+        print(f"\nProcessing image: {image_input}")
+        image_data = cv2.imread(image_input)
+        # It's good practice to convert to RGB as PaddleOCR works well with it.
+        image_data = cv2.cvtColor(image_data, cv2.COLOR_BGR2RGB)
+    elif isinstance(image_input, np.ndarray):
+        # If input is already a numpy array, use it directly.
+        # We assume it's already in RGB format from app.py
+        image_data = image_input
 
-    original_bgr_image = cv2.imread(image_path)
-    if original_bgr_image is None:
-        print(f"Skipping {image_path}, could not load.")
+    original_bgr_image = image_data
 
     print("Performing OCR with custom PaddleOCR...")
 
